@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="9.5.3" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLibrary.Domain\CoreLibrary.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugPackageFiles Include="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <ReleasePackageFiles Include="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" />
+  </ItemGroup>
+
+  <Target Name="CopyPackage" AfterTargets="GenerateNuspec">
+    <Move SourceFiles="@(DebugPackageFiles)" DestinationFolder="$(SolutionDir)NuGet\Debug\" />
+    <Move SourceFiles="@(ReleasePackageFiles)" DestinationFolder="$(SolutionDir)NuGet\Release\" />
+  </Target>
+
+</Project>

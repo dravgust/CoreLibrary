@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLibrary.Diagnostic\CoreLibrary.Diagnostic.csproj" />
+    <ProjectReference Include="..\CoreLibrary.Reflection\CoreLibrary.Reflection.csproj" />
+    <ProjectReference Include="..\CoreLibrary.Utilities\CoreLibrary.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>
