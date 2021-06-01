@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugPackageFiles Include="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <ReleasePackageFiles Include="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" />
+  </ItemGroup>
+
+  <Target Name="CopyPackage" AfterTargets="GenerateNuspec">
+    <Move SourceFiles="@(DebugPackageFiles)" DestinationFolder="$(SolutionDir)NuGet\Debug\" />
+    <Move SourceFiles="@(ReleasePackageFiles)" DestinationFolder="$(SolutionDir)NuGet\Release\" />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.10" />
+  </ItemGroup>
+
+</Project>

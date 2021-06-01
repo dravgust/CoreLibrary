@@ -36,4 +36,8 @@
     <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Context\" />
+  </ItemGroup>
+
 </Project>
