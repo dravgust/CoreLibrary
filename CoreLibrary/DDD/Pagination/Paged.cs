@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.DDD.Pagination
 {
+    [PublicAPI]
     public interface IPagedEnumerable<out T> : IEnumerable<T>
     {
         /// <summary>
@@ -12,13 +14,14 @@ namespace CoreLibrary.DDD.Pagination
         long TotalCount { get; }
     }
 
+    [PublicAPI]
     public static class Paged
     {
         public static IQueryable<T> Paginate<T, TKey>(this IQueryable<T> queryable, IPaging<T, TKey> paging)
             where T : class
             => (paging.OrderBy.SortOrder == SortOrder.Asc
-                    ? queryable.OrderBy(paging.OrderBy.Expression)
-                    : queryable.OrderByDescending(paging.OrderBy.Expression))
+                ? queryable.OrderBy(paging.OrderBy.Expression)
+                : queryable.OrderByDescending(paging.OrderBy.Expression))
                 .Skip((paging.Page - 1) * paging.Take)
                 .Take(paging.Take);
 
@@ -28,10 +31,10 @@ namespace CoreLibrary.DDD.Pagination
             => From(queryable.Paginate(paging).ToArray(), queryable.Count());
 
         public static IPagedEnumerable<T> From<T>(IEnumerable<T> inner, int totalCount)
-            => new PagedEnumerable<T>(inner, totalCount);
+            =>  new PagedEnumerable<T>(inner, totalCount);
 
         public static IPagedEnumerable<T> Empty<T>()
-            => From(Enumerable.Empty<T>(), 0);
+             =>  From(Enumerable.Empty<T>(), 0);
     }
 
     public class PagedEnumerable<T> : IPagedEnumerable<T>

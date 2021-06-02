@@ -1,8 +1,10 @@
 ﻿using System;
 using CoreLibrary.DDD.Entities;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.DDD
 {
+    [PublicAPI]
     public interface IUnitOfWork : IDisposable
     {
         void Add<TEntity>(TEntity entity)

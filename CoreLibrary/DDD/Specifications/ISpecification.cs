@@ -1,7 +1,9 @@
-﻿namespace CoreLibrary.DDD.Specifications
+﻿using JetBrains.Annotations;
+
+namespace CoreLibrary.DDD.Specifications
 {
     public interface ISpecification<in T>
     {
-        bool IsSatisfiedBy(T o);
+        bool IsSatisfiedBy([NotNull]T o);
     }
 }

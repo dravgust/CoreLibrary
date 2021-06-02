@@ -1,5 +1,6 @@
 ﻿using System;
 using CoreLibrary.DDD;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.CQRS
 {
@@ -7,7 +8,7 @@ namespace CoreLibrary.CQRS
     {
         protected readonly IUnitOfWork UnitOfWork;
 
-        protected UowBased(IUnitOfWork unitOfWork)
+        protected UowBased([NotNull] IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }

@@ -3,6 +3,7 @@ using System.Linq;
 using CoreLibrary.Common;
 using CoreLibrary.DDD;
 using CoreLibrary.DDD.Entities;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.CQRS.Queries
 {
@@ -15,7 +16,7 @@ namespace CoreLibrary.CQRS.Queries
 
         protected readonly IProjector Projector;
 
-        public GetByIdQuery(ILinqProvider linqProvider, IProjector projector)
+        public GetByIdQuery([NotNull] ILinqProvider linqProvider, [NotNull] IProjector projector)
         {
             LinqProvider = linqProvider ?? throw new ArgumentNullException(nameof(linqProvider));
             Projector = projector ?? throw new ArgumentNullException(nameof(projector));

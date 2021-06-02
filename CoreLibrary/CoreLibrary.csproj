@@ -20,6 +20,7 @@
   </Target>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.10" />
   </ItemGroup>
 

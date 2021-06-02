@@ -1,7 +1,9 @@
 ﻿using CoreLibrary.DDD.Entities;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.DDD.Specifications
 {
+    [PublicAPI]
     public class IdSpecification<TKey,T> : ExpressionSpecification<T>
         where T : IHasId<TKey>
     {

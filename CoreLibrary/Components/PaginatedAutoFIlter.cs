@@ -4,6 +4,7 @@ using System.Linq;
 using CoreLibrary.CQRS;
 using CoreLibrary.DDD.Entities;
 using CoreLibrary.DDD.Specifications;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.Components
 {
@@ -20,7 +21,7 @@ namespace CoreLibrary.Components
             Filter = new Dictionary<string, object>();
         }
 
-        public PaginatedAutoFilter(int page, int take, IDictionary<string, object> filter)
+        public PaginatedAutoFilter(int page, int take, [NotNull] IDictionary<string, object> filter)
             :base(page,take)
         {
             Filter = filter ?? throw new ArgumentNullException(nameof(filter));

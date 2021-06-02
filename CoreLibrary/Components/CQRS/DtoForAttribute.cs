@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.Components.CQRS
 {
@@ -7,7 +8,7 @@ namespace CoreLibrary.Components.CQRS
     {
         public Type EntityType { get; }
 
-        public DtoForAttribute(Type entityType)
+        public DtoForAttribute([NotNull] Type entityType)
         {
             EntityType = entityType ?? throw new ArgumentNullException(nameof(entityType));
         }

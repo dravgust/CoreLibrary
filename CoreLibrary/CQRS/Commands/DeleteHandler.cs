@@ -1,15 +1,16 @@
 ﻿using System;
 using CoreLibrary.DDD;
 using CoreLibrary.DDD.Entities;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.CQRS.Commands
 {
     public class DeleteHandler<TKey, TEntity>
         : UowBased
-        , ICommandHandler<TKey>
+            , ICommandHandler<TKey>
         where TEntity : class, IHasId<TKey>
     {
-        public DeleteHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public DeleteHandler([NotNull] IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

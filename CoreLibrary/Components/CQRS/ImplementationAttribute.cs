@@ -1,11 +1,12 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.Components.CQRS
 {
     [AttributeUsage(AttributeTargets.Parameter)]
     public class ImplementationAttribute : Attribute
     {
-        public ImplementationAttribute(Type implementation)
+        public ImplementationAttribute([NotNull] Type implementation)
         {
             Implementation = implementation ?? throw new ArgumentNullException(nameof(implementation));
         }

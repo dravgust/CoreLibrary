@@ -8,6 +8,7 @@ using CoreLibrary.CQRS;
 using CoreLibrary.CQRS.Commands;
 using CoreLibrary.CQRS.Queries;
 using CoreLibrary.DDD.Pagination;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.Components
 {
@@ -90,6 +91,7 @@ namespace CoreLibrary.Components
             return dtoType.GetTypeInfo().GetCustomAttribute<DtoForAttribute>()?.EntityType;
         }
 
+        [CanBeNull]
         private static Type GetFallBack(Type type)
         {
             var ti = type.GetTypeInfo();

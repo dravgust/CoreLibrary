@@ -7,9 +7,11 @@ using CoreLibrary.Common;
 using CoreLibrary.CQRS;
 using CoreLibrary.DDD;
 using CoreLibrary.DDD.Entities;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.Extensions
 {
+    [PublicAPI]
     public static class InfrastructureExtensions
     {
         #region Dynamic Expression Compilation
@@ -26,10 +28,10 @@ namespace CoreLibrary.Extensions
             => AsFunc(expr).Invoke(entity);
 
         public static Func<TIn, TOut> ToFunc<TIn, TOut>(this IQuery<TIn, TOut> query)
-            => query.Ask;
+            => x => query.Ask(x);
 
         public static Func<TIn, TOut> ToFunc<TIn, TOut>(this ICommandHandler<TIn, TOut> commandHandler)
-            => commandHandler.Handle;
+            => x => commandHandler.Handle(x);
 
         #endregion
 
@@ -63,7 +65,7 @@ namespace CoreLibrary.Extensions
             => condition(o) ? ifTrue(o) : ifFalse(o);
 
 
-        public static TInput Do<TInput>(this TInput o, Action<TInput> action, Func<Exception> ifNull = null)
+        public static TInput Do<TInput>(this TInput o, Action<TInput> action, [CanBeNull] Func<Exception> ifNull = null)
             where TInput : class
         {
             if (o == null)
@@ -79,7 +81,7 @@ namespace CoreLibrary.Extensions
             return o;
         }
 
-        public static TOutput Do<TInput, TOutput>(this TInput o, Func<TInput, TOutput> func, Func<Exception> ifNull = null)
+        public static TOutput Do<TInput, TOutput>(this TInput o, Func<TInput, TOutput> func, [CanBeNull] Func<Exception> ifNull = null)
         {
             if (o == null)
             {
@@ -107,8 +109,8 @@ namespace CoreLibrary.Extensions
 
         public static IQueryable<T> ApplyIfPossible<T>(this IQueryable<T> source, object spec)
             where T : class
-            => spec is ILinqSpecification<T> specification
-                ? specification.Apply(source)
+            => spec is ILinqSpecification<T>
+                ? ((ILinqSpecification<T>)spec).Apply(source)
                 : source;
 
         public static IQueryable<TDest> Project<TSource, TDest>(this IQueryable<TSource> source, IProjector projector)

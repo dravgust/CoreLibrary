@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.DDD
 {
+    /// <summary>
+    /// Sort order enumeration
+    /// </summary>
+    [PublicAPI]
     public enum SortOrder
     {
-        Asc = 1,
-        Desc = 2
+        [PublicAPI] Asc = 1,
+        [PublicAPI] Desc = 2
     }
 
+    [PublicAPI]
     public class Sorting<TEntity, TKey>
         where TEntity : class
     {
@@ -17,7 +23,7 @@ namespace CoreLibrary.DDD
         public SortOrder SortOrder { get; private set; }
 
         public Sorting(
-            Expression<Func<TEntity, TKey>> expression,
+            [NotNull] Expression<Func<TEntity, TKey>> expression,
             SortOrder sortOrder = SortOrder.Asc)
         {
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.Extensions
 {
     ///<summary>
     /// Класс свойств расширений для коллекций строк
     ///</summary>
+    [PublicAPI]
     public static class StringExtensions
     {
         ///<summary>
@@ -15,11 +17,13 @@ namespace CoreLibrary.Extensions
         ///<param name="source"></param>
         ///<param name="separator"></param>
         ///<returns></returns>
+        [PublicAPI]
         public static string Join(this IEnumerable<string> source, string separator)
         {
             return string.Join(separator, source);
         }
 
+        [PublicAPI]
         public static bool Contains(this string input, string value, StringComparison comparisonType)
         {
             if (!string.IsNullOrEmpty(input))
@@ -31,19 +35,21 @@ namespace CoreLibrary.Extensions
         }
 
 
+        [PublicAPI]
         public static bool LikewiseContains(this string input, string value)
         {
             return Contains(input, value, StringComparison.CurrentCulture);
         }
 
+        [PublicAPI]
         public static string ToString(this int value, string oneForm, string twoForm, string fiveForm)
         {
-            var significantValue = value%100;
+            var significantValue = value % 100;
 
             if (significantValue >= 10 && significantValue <= 20)
                 return $"{value} {fiveForm}";
 
-            var lastDigit = value%10;
+            var lastDigit = value % 10;
             switch (lastDigit)
             {
                 case 1:
@@ -58,6 +64,7 @@ namespace CoreLibrary.Extensions
 
         }
 
+        [PublicAPI]
         public static string ToUnderscoreCase(this string str)
         {
             return string

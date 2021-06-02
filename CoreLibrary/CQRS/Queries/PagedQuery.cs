@@ -8,7 +8,7 @@ using CoreLibrary.DDD.Pagination;
 namespace CoreLibrary.CQRS.Queries
 {
     public class PagedQuery<TSortKey, TSpec, TEntity, TDto> : ProjectionQuery<TSpec, TEntity, TDto>,
-        IQuery<TSpec, IPagedEnumerable<TDto>> 
+        IQuery<TSpec, IPagedEnumerable<TDto>>
         where TEntity : class, IHasId
         where TDto : class, IHasId
         where TSpec : IPaging<TDto, TSortKey>

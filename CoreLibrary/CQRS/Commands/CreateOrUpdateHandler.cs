@@ -2,19 +2,20 @@
 using CoreLibrary.Common;
 using CoreLibrary.DDD;
 using CoreLibrary.DDD.Entities;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.CQRS.Commands
 {
     public class CreateOrUpdateHandler<TKey, TDto, TEntity> : UowBased, ICommandHandler<TDto, TKey>
-        where TKey: struct
+        where TKey : struct
         where TEntity : HasIdBase<TKey>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public CreateOrUpdateHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper) : base(unitOfWork)
+            [NotNull] IUnitOfWork unitOfWork,
+            [NotNull] IMapper mapper) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

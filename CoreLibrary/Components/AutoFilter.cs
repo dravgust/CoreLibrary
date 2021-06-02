@@ -4,13 +4,13 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
 using CoreLibrary.CQRS;
+using JetBrains.Annotations;
 
 namespace CoreLibrary.Components
 {
     public static class AutoFilterExtensions
     {
-        public static IQueryable<T> ApplyDictionary<T>(this IQueryable<T> query
-            , IDictionary<string, object> filters)
+        public static IQueryable<T> ApplyDictionary<T>(this IQueryable<T> query, IDictionary<string, object> filters)
         {
             foreach (var kv in filters)
             {
@@ -29,16 +29,16 @@ namespace CoreLibrary.Components
     }
 
     public class AutoFilter<T> : ILinqSpecification<T>
-        where T : class
+        where T: class
     {
-        public IDictionary<string, object> Filter { get; }
+        public IDictionary<string, object> Filter { get; } 
 
         public AutoFilter()
         {
             Filter = new Dictionary<string, object>();
         }
 
-        public AutoFilter(IDictionary<string, object> filter)
+        public AutoFilter([NotNull] IDictionary<string, object> filter)
         {
             Filter = filter ?? throw new ArgumentNullException(nameof(filter));
         }
